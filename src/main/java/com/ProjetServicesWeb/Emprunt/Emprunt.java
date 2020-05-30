@@ -1,29 +1,30 @@
+package com.ProjetServicesWeb.Emprunt;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Emprunt {
-    private static int nbEmprunts = 0;
+    @Id
+    @GeneratedValue
     private int id;
     private String isbn;
     private int idLecteur;
     private Date datePret;
     private Date dateRetour;
 
+    public Emprunt(){
+
+    }
+
     public Emprunt(String isbn, int idLecteur, Date datePret, Date dateRetour) {
-        nbEmprunts++;
-        this.id = nbEmprunts;
         this.isbn = isbn;
         this.idLecteur = idLecteur;
         this.datePret = datePret;
         this.dateRetour = dateRetour;
-    }
-
-    public static int getNbEmprunts() {
-        return nbEmprunts;
-    }
-
-    public static void setNbEmprunts(int nbEmprunts) {
-        Emprunt.nbEmprunts = nbEmprunts;
     }
 
     public int getId() {
@@ -66,23 +67,4 @@ public class Emprunt {
         this.dateRetour = dateRetour;
     }
 
-    public void ajouterEmprunt(String isbn, int idLecteur, Date datePret, Date dateRetour){
-        Emprunt emprunt = new Emprunt(isbn, idLecteur, datePret, dateRetour);
     }
-
-    public Emprunt recupererEmprunt(String isbn){
-
-    }
-
-    public List<Emprunt> listerEmprunt(){
-
-    }
-
-    public void modifierEmprunt(String isbn, int idLecteur, Date datePret, Date dateRetour){
-
-    }
-
-    public void supprimerEmprunt(){
-
-    }
-}
