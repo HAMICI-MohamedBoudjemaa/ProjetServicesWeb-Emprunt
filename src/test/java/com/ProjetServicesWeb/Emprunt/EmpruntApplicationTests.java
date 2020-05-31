@@ -27,6 +27,14 @@ class EmpruntApplicationTests {
 	private EmpruntController empruntController;
 
 	@Test
+	public void testCreate(){
+		ResponseEntity<EntityModel<Emprunt>> cree = empruntController.create(new Emprunt("isbn1",1, new Date("22/05/2020"), new Date("28/05/2020")));
+		assertTrue(cree!=null);
+		ResponseEntity<EntityModel<Emprunt>> cree2 = empruntController.create(new Emprunt("isbn2",2, new Date("24/03/2020"), null));
+		assertTrue(cree==null);
+	}
+
+	@Test
 	public void testFindById() {
 		Emprunt cree = new Emprunt("isbn1",1, new Date("22/05/2020"), new Date("28/05/2020"));
 		empruntController.create(cree);
