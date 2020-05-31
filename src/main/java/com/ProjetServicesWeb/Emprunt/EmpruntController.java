@@ -46,15 +46,15 @@ public class EmpruntController {
     }
 
     @PostMapping
-    public ResponseEntity<EntityModel<Emprunt>> create(@RequestBody Emprunt Emprunt){
-        Emprunt cree = empruntServiceProvider.create(Emprunt);
+    public ResponseEntity<EntityModel<Emprunt>> create(@RequestBody Emprunt emprunt){
+        Emprunt cree = empruntServiceProvider.create(emprunt);
         Link lien = linkTo(methodOn(EmpruntController.class).findById(cree.getId())).withSelfRel();
         return new ResponseEntity<>(new EntityModel<>(cree, lien), CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<EntityModel<Emprunt>> modify(@RequestBody Emprunt Emprunt){
-        Emprunt cree = empruntServiceProvider.modify(Emprunt);
+    public ResponseEntity<EntityModel<Emprunt>> modify(@RequestBody Emprunt emprunt){
+        Emprunt cree = empruntServiceProvider.modify(emprunt);
         Link lien = linkTo(methodOn(EmpruntController.class).findById(cree.getId())).withSelfRel();
         return new ResponseEntity<>(new EntityModel<>(cree, lien), CREATED);
     }

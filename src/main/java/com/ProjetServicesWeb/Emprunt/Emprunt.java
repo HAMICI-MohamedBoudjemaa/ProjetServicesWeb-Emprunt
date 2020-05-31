@@ -67,4 +67,14 @@ public class Emprunt {
         this.dateRetour = dateRetour;
     }
 
+    @Override
+    public String toString() {
+        return "Emprunt{" +
+                "id=" + id +
+                ", isbn='" + isbn + '\'' +
+                ", idLecteur=" + idLecteur +
+                ", datePret=" + datePret +
+                ", dateRetour=" + dateRetour +
+                '}';
     }
+}

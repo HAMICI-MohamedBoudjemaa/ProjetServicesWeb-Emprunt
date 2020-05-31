@@ -1,7 +1,10 @@
 package com.ProjetServicesWeb.Emprunt;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -15,7 +18,19 @@ public class EmpruntServiceProviderImpl implements EmpruntServiceProvider{
 
     @Override
     public Emprunt create(Emprunt emprunt) {
-        return empruntRepository.save(emprunt);
+        String lecteurApi = "http://localhost:8080/lecteurs/";
+        RestTemplate restTemplateLecteur = new RestTemplate();
+        String uriLecteur = String.format("%s%s", lecteurApi, emprunt.getIdLecteur());
+        String livreApi = "http://localhost:8090/livres/";
+        RestTemplate restTemplateLivre = new RestTemplate();
+        String uriLivre = String.format("%s%s", livreApi, emprunt.getIsbn());
+
+        ResponseEntity<Lecteur> responseEntityLecteur = restTemplateLecteur.exchange(uriLecteur, HttpMethod.GET, null, Lecteur.class);
+        ResponseEntity<Livre> responseEntityLivre = restTemplateLivre.exchange(uriLivre, HttpMethod.GET, null, Livre.class);
+        if (responseEntityLecteur.getBody().getId()!=0 && responseEntityLivre.getBody().getIsbn()!=null) {
+            return empruntRepository.save(emprunt);
+        }
+        return (new Emprunt());
     }
 
     @Override
@@ -27,7 +42,7 @@ public class EmpruntServiceProviderImpl implements EmpruntServiceProvider{
             myEmprunt.setDateRetour(dateRetour);
             return empruntRepository.save(myEmprunt);
         }
-        return null;
+        return (new Emprunt());
     }
 
     @Override
@@ -66,7 +81,7 @@ public class EmpruntServiceProviderImpl implements EmpruntServiceProvider{
         {
             return empruntRepository.save(emprunt);
         }
-        return null;
+        return new Emprunt();
     }
 
     @Override
