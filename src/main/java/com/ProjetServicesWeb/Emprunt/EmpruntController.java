@@ -7,6 +7,8 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,14 +34,16 @@ public class EmpruntController {
     @GetMapping
     public ResponseEntity<CollectionModel<Emprunt>> findBy(@RequestParam(value = "isbn", required = false) String isbn,
                                                            @RequestParam(value = "idLecteur", required = false) Integer idLecteur,
-                                                           @RequestParam(value = "datePret", required = false) Date datePret,
-                                                           @RequestParam(value = "dateRetour", required = false) Date dateRetour
-    ){
+                                                           @RequestParam(value = "datePret", required = false) String datePret,
+                                                           @RequestParam(value = "dateRetour", required = false) String dateRetour
+    ) throws ParseException {
+
+
         List<Emprunt> cree = null;
         if(isbn!=null){cree = empruntServiceProvider.findByIsbn(isbn);}
         else if(idLecteur!=null){cree = empruntServiceProvider.findByIdLecteur(idLecteur);}
-        else if(datePret!=null){cree = empruntServiceProvider.findByDatePret(datePret);}
-        else if(dateRetour!=null){cree = empruntServiceProvider.findByDateRetour(dateRetour);}
+        else if(datePret!=null){Date datePret1 = new SimpleDateFormat("dd-MM-yyyy").parse(datePret);cree = empruntServiceProvider.findByDatePret(datePret1);}
+        else if(dateRetour!=null){Date dateRetour1 = new SimpleDateFormat("dd-MM-yyyy").parse(dateRetour);cree = empruntServiceProvider.findByDateRetour(dateRetour1);}
         else{cree = empruntServiceProvider.getAll();}
         Link lien = linkTo(methodOn(EmpruntController.class).findBy(isbn, idLecteur, datePret, dateRetour)).withSelfRel();
         return new ResponseEntity<CollectionModel<Emprunt>>(new CollectionModel<>(cree, lien), CREATED);

@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -95,7 +96,7 @@ class EmpruntApplicationTests {
 	}
 
 	@Test
-	public void testFindByIsbn() {
+	public void testFindByIsbn() throws ParseException {
 		RestTemplate restTemplateLecteur = new RestTemplate();
 		String uriLecteur = "http://localhost:8080/lecteurs";
 		RestTemplate restTemplateLivre = new RestTemplate();
@@ -129,7 +130,7 @@ class EmpruntApplicationTests {
 	}
 
 	@Test
-	public void testFindByIdLecteur() {
+	public void testFindByIdLecteur() throws ParseException {
 		RestTemplate restTemplateLecteur = new RestTemplate();
 		String uriLecteur = "http://localhost:8080/lecteurs";
 		RestTemplate restTemplateLivre = new RestTemplate();
@@ -163,7 +164,7 @@ class EmpruntApplicationTests {
 	}
 
 	@Test
-	public void testFindByDatePret() {
+	public void testFindByDatePret() throws ParseException {
 		RestTemplate restTemplateLecteur = new RestTemplate();
 		String uriLecteur = "http://localhost:8080/lecteurs";
 		RestTemplate restTemplateLivre = new RestTemplate();
@@ -190,14 +191,14 @@ class EmpruntApplicationTests {
 		empruntController.create(cree2);
 
 
-		List<Emprunt> emprunt = empruntController.findBy(null,null,new Date("24/03/2020"), null).getBody().getContent().stream().collect(Collectors.toList());
+		List<Emprunt> emprunt = empruntController.findBy(null,null,"03-24-2020", null).getBody().getContent().stream().collect(Collectors.toList());
 		assertEquals(cree2.getDatePret(), emprunt.get(0).getDatePret());
 
 		//assertThat(books).extracting(com.ProjetServicesWeb.Emprunt.Emprunt::getName).containsOnly("C++");
 	}
 
 	@Test
-	public void testFindByDateRetour() {
+	public void testFindByDateRetour() throws ParseException {
 		RestTemplate restTemplateLecteur = new RestTemplate();
 		String uriLecteur = "http://localhost:8080/lecteurs";
 		RestTemplate restTemplateLivre = new RestTemplate();
@@ -224,14 +225,14 @@ class EmpruntApplicationTests {
 		empruntController.create(cree2);
 
 
-		List<Emprunt> emprunt = empruntController.findBy(null,null,null, new Date("28/05/2020")).getBody().getContent().stream().collect(Collectors.toList());
+		List<Emprunt> emprunt = empruntController.findBy(null,null,null,"05-28-2020").getBody().getContent().stream().collect(Collectors.toList());
 		assertEquals(cree.getDateRetour(), emprunt.get(0).getDateRetour());
 
 		//assertThat(books).extracting(com.ProjetServicesWeb.Emprunt.Emprunt::getName).containsOnly("C++");
 	}
 
 	@Test
-	public void testFindAll() {
+	public void testFindAll() throws ParseException {
 		RestTemplate restTemplateLecteur = new RestTemplate();
 		String uriLecteur = "http://localhost:8080/lecteurs";
 		RestTemplate restTemplateLivre = new RestTemplate();
