@@ -1,11 +1,13 @@
 package com.ProjetServicesWeb.Emprunt;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EmpruntServiceProviderImpl implements EmpruntServiceProvider{
 
     @Autowired
@@ -14,6 +16,18 @@ public class EmpruntServiceProviderImpl implements EmpruntServiceProvider{
     @Override
     public Emprunt create(Emprunt emprunt) {
         return empruntRepository.save(emprunt);
+    }
+
+    @Override
+    public Emprunt retourner(Integer id, Date dateRetour) {
+        Optional<Emprunt> emprunt = findById(id);
+        if(emprunt.isPresent())
+        {
+            Emprunt myEmprunt = emprunt.get();
+            myEmprunt.setDateRetour(dateRetour);
+            return empruntRepository.save(myEmprunt);
+        }
+        return null;
     }
 
     @Override
@@ -39,6 +53,11 @@ public class EmpruntServiceProviderImpl implements EmpruntServiceProvider{
     @Override
     public List<Emprunt> findByDateRetour(Date dateRetour) {
         return empruntRepository.findByDateRetour(dateRetour);
+    }
+
+    @Override
+    public List<Emprunt> getAll() {
+        return empruntRepository.findAll();
     }
 
     @Override
