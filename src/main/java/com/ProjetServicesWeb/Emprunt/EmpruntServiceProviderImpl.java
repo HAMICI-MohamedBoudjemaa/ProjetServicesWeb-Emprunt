@@ -40,6 +40,7 @@ public class EmpruntServiceProviderImpl implements EmpruntServiceProvider{
         {
             Emprunt myEmprunt = emprunt.get();
             myEmprunt.setDateRetour(dateRetour);
+            myEmprunt.setRendu("oui");
             return empruntRepository.save(myEmprunt);
         }
         return (new Emprunt());
@@ -93,5 +94,10 @@ public class EmpruntServiceProviderImpl implements EmpruntServiceProvider{
             return 1;
         }
         return 0;
+    }
+
+    @Override
+    public List<Emprunt> findByRendu(String rendu) {
+        return empruntRepository.findByRendu(rendu);
     }
 }

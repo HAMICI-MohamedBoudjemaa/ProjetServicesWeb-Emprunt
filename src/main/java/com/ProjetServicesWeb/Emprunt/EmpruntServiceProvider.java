@@ -15,5 +15,6 @@ public interface EmpruntServiceProvider {
     List<Emprunt> getAll();
     Emprunt modify(Emprunt emprunt);
     int delete(Integer id);
+    List<Emprunt> findByRendu(String rendu);
 
 }

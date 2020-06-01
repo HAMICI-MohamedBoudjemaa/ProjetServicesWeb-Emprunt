@@ -10,5 +10,7 @@ public interface EmpruntRepository extends JpaRepository<Emprunt, Integer>{
     List<Emprunt> findByIdLecteur(final Integer idLecteur);
     List<Emprunt> findByDatePret(final Date datePret);
     List<Emprunt> findByDateRetour(final Date dateRetour);
+    List<Emprunt> findByRendu(final String rendu);
+
 
 }

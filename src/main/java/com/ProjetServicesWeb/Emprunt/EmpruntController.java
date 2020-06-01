@@ -35,7 +35,8 @@ public class EmpruntController {
     public ResponseEntity<CollectionModel<Emprunt>> findBy(@RequestParam(value = "isbn", required = false) String isbn,
                                                            @RequestParam(value = "idLecteur", required = false) Integer idLecteur,
                                                            @RequestParam(value = "datePret", required = false) String datePret,
-                                                           @RequestParam(value = "dateRetour", required = false) String dateRetour
+                                                           @RequestParam(value = "dateRetour", required = false) String dateRetour,
+                                                           @RequestParam(value = "rendu", required = false) String rendu
     ) throws ParseException {
 
 
@@ -44,8 +45,9 @@ public class EmpruntController {
         else if(idLecteur!=null){cree = empruntServiceProvider.findByIdLecteur(idLecteur);}
         else if(datePret!=null){Date datePret1 = new SimpleDateFormat("dd-MM-yyyy").parse(datePret);cree = empruntServiceProvider.findByDatePret(datePret1);}
         else if(dateRetour!=null){Date dateRetour1 = new SimpleDateFormat("dd-MM-yyyy").parse(dateRetour);cree = empruntServiceProvider.findByDateRetour(dateRetour1);}
+        else if(rendu!=null){cree = empruntServiceProvider.findByRendu(rendu);}
         else{cree = empruntServiceProvider.getAll();}
-        Link lien = linkTo(methodOn(EmpruntController.class).findBy(isbn, idLecteur, datePret, dateRetour)).withSelfRel();
+        Link lien = linkTo(methodOn(EmpruntController.class).findBy(isbn, idLecteur, datePret, dateRetour, rendu)).withSelfRel();
         return new ResponseEntity<CollectionModel<Emprunt>>(new CollectionModel<>(cree, lien), CREATED);
     }
 

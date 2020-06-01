@@ -17,16 +17,19 @@ public class Emprunt {
     private Date datePret;
     @Temporal(TemporalType.DATE)
     private Date dateRetour;
+    private String rendu;
 
     public Emprunt(){
 
     }
 
-    public Emprunt(String isbn, int idLecteur, Date datePret, Date dateRetour) {
+    public Emprunt(String isbn, int idLecteur, Date datePret, Date dateRetour, String rendu) {
         this.isbn = isbn;
         this.idLecteur = idLecteur;
         this.datePret = datePret;
         this.dateRetour = dateRetour;
+        this.rendu = rendu;
+
     }
 
     public int getId() {
@@ -67,6 +70,14 @@ public class Emprunt {
 
     public void setDateRetour(Date dateRetour) {
         this.dateRetour = dateRetour;
+    }
+
+    public String getRendu() {
+        return rendu;
+    }
+
+    public void setRendu(String rendu) {
+        this.rendu = rendu;
     }
 
     @Override
