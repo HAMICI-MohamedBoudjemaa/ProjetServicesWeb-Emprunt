@@ -1,8 +1,7 @@
 package com.ProjetServicesWeb.Emprunt;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +12,10 @@ public class Emprunt {
     private int id;
     private String isbn;
     private int idLecteur;
+
+    @Temporal(TemporalType.DATE)
     private Date datePret;
+    @Temporal(TemporalType.DATE)
     private Date dateRetour;
 
     public Emprunt(){
