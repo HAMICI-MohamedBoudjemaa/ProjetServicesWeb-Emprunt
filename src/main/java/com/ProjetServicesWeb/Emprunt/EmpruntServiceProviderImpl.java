@@ -18,10 +18,10 @@ public class EmpruntServiceProviderImpl implements EmpruntServiceProvider{
 
     @Override
     public Emprunt create(Emprunt emprunt) {
-        String lecteurApi = "http://localhost:8080/lecteurs/";
+        String lecteurApi = "http://192.168.1.81:8080/lecteurs/";
         RestTemplate restTemplateLecteur = new RestTemplate();
         String uriLecteur = String.format("%s%s", lecteurApi, emprunt.getIdLecteur());
-        String livreApi = "http://localhost:8090/livres/";
+        String livreApi = "http://192.168.1.81:8090/livres/";
         RestTemplate restTemplateLivre = new RestTemplate();
         String uriLivre = String.format("%s%s", livreApi, emprunt.getIsbn());
 
